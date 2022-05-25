@@ -1,7 +1,9 @@
-//Import express to use
+//Import express 
 const express = require("express");
+//import mysql2
+const mysql = require("mysql2");
 
-//port designation
+//port designation for server.js
 const PORT = process.env.PORT || 3001;
 //app expression
 const app = express();
@@ -10,6 +12,20 @@ app.use(express.urlencoded({ extended: false }));
 //Express.js middleware that parses post data into JavaScript object req.body
 app.use(express.json());
 
+//connect to SQL database
+const db = mysql.createConnection(
+    {
+        host: "localhost",
+        user: "root",
+        password: "&7970n&P!5So9@)",
+        database: "election"
+    },
+    console.log("Connected to the election database")
+);
+//runs SQL query and executes callback with rows that match query
+db.query(`SELECT * FROM candidates`, (err, rows) => {
+    console.log(rows)
+});
 
 //Route to handle unsupported user requests
 app.use((req, res) => {
